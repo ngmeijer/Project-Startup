@@ -2,17 +2,34 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SecuritySystem : MonoBehaviour
+namespace SecuritySystemNS
 {
-    // Start is called before the first frame update
-    void Start()
+    public class SecuritySystem : MonoBehaviour
     {
-        
-    }
+        [SerializeField] private Camera _camera;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        [Header("Security Settings")]
+        [Range(0.001f, 2f)]
+        [SerializeField]
+        private float _updateInterval = 1f;
+
+        private float timer;
+
+        private void Update()
+        {
+            //Meh, could also use a coroutine with delay for this, what do you want?
+            timer += Time.deltaTime;
+
+            if (timer >= _updateInterval)
+            {
+                updateMap();
+                timer = 0;
+            }
+        }
+
+        private void updateMap()
+        {
+            _camera.Render();
+        }
     }
 }

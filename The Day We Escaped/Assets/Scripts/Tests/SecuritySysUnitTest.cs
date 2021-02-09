@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterNS
+namespace Tests
 {
-    public class Enemy : Character
+    public class SecuritySysUnitTest : MonoBehaviour
     {
         // Start is called before the first frame update
         void Start()

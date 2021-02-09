@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+namespace CharacterNS
 {
-    private PlayerMovement _movementModule;
-
-    private void Awake()
+    public class Player : Character
     {
-        _movementModule = GetComponent<PlayerMovement>();
+        private PlayerMovement _movementModule;
+
+        private void Awake()
+        {
+            _movementModule = GetComponent<PlayerMovement>();
+        }
     }
 }
