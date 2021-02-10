@@ -5,18 +5,10 @@ using UnityEngine;
 public class Viewcone : MonoBehaviour
 {
     [SerializeField] private float _viewAngle = 20f;
+    [SerializeField] private float _range = 20f;
 
-    public Transform target;
-
-    private void Update()
+    public Vector3 DirectionFromAngle(float angleInDegs)
     {
-        Vector3 targetDirection = target.position - transform.position;
-
-        float angle = Vector3.Angle(targetDirection, transform.forward);
-
-        if (angle < _viewAngle)
-        {
-            Debug.Log("Saw player");
-        }
+        return new Vector3(Mathf.Sin(Mathf.Deg2Rad * angleInDegs), Mathf.Cos(Mathf.Deg2Rad * angleInDegs));
     }
 }
