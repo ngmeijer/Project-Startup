@@ -4,9 +4,19 @@ using UnityEngine;
 
 public class FieldOfView : MonoBehaviour
 {
-    [Range(0, 360)] public float ViewWidthHeight = 250f;
-    [Range(0, 10)] public float ViewRange = 20f;
-    [Range(0, 5)] public float ViewWidth = 1f;
+    [Range(0, 10)] public float ViewZRange = 20f;
+    [Range(0, 5)] public float ViewX = 1f;
+
+    private float minRange = 0.01f;
+
+    [SerializeField] private Mesh mesh;
+    [SerializeField] private Vector3 offset;
+    [SerializeField] private float sixthSenseStrength = 3f;
+
+    private void Start()
+    {
+
+    }
 
     public Vector3 DirectionFromAngle(float angleInDegs, bool isGlobal)
     {
@@ -26,22 +36,13 @@ public class FieldOfView : MonoBehaviour
     private void drawRangeIndicator(Color gizmoColor)
     {
         Gizmos.color = gizmoColor;
-        Gizmos.DrawWireSphere(Vector3.zero, ViewRange);
+        //Gizmos.DrawWireSphere(Vector3.zero, MaxViewRange);
+        Gizmos.DrawWireMesh(mesh, Vector3.zero + offset, Quaternion.identity, new Vector3(ViewX * 10, 2, ViewZRange));
     }
 
     private void drawFrustum(Color gizmoColor)
     {
         Gizmos.color = gizmoColor;
-        Gizmos.DrawFrustum(Vector3.zero, ViewWidthHeight, ViewRange, 0.1f, ViewWidth);
-    }
-
-    private void drawAngleIndicator(Color gizmoColor)
-    {
-        Gizmos.color = gizmoColor;
-        Vector3 leftViewAngle = DirectionFromAngle(-ViewWidthHeight / 2, false);
-        Vector3 rightViewAngle = DirectionFromAngle(ViewWidthHeight / 2, false);
-
-        Gizmos.DrawLine(Vector3.zero, leftViewAngle * ViewRange);
-        Gizmos.DrawLine(Vector3.zero, rightViewAngle * ViewRange);
+        Gizmos.DrawFrustum(Vector3.zero, 85f, ViewZRange / 2, minRange, ViewX);
     }
 }

@@ -6,14 +6,13 @@ namespace CharacterNS
 {
     public class PlayerMovement : MonoBehaviour
     {
-        private Rigidbody rb;
+        private Rigidbody _rb;
         [Range(0.5f, 10)] [SerializeField] private float _moveSpeed = 3f;
         [Range(0.5f, 10)] [SerializeField] private float _jumpForce = 5f;
 
         private void Awake()
         {
-            rb = GetComponent<Rigidbody>();
-            rb.isKinematic = true;
+            _rb = GetComponent<Rigidbody>();
         }
 
         private void FixedUpdate()
@@ -29,11 +28,18 @@ namespace CharacterNS
             float horizontalAxis = Input.GetAxisRaw("Horizontal");
             float verticalAxis = Input.GetAxisRaw("Vertical");
 
-            Vector3 moveVector = new Vector3(horizontalAxis, 0f, verticalAxis);
+            Vector3 movePos = transform.right * horizontalAxis + transform.forward * verticalAxis;
+            movePos = movePos.normalized;
 
-            moveVector = moveVector.normalized * _moveSpeed * Time.deltaTime;
+            Vector3 newPos = new Vector3(movePos.x * _moveSpeed, _rb.velocity.y, movePos.z * _moveSpeed);
 
-            rb.MovePosition(transform.position + moveVector);
+            _rb.velocity = newPos;
+
+            //Vector3 moveVector = new Vector3(horizontalAxis, 0f, verticalAxis);
+
+            //moveVector = moveVector.normalized * _moveSpeed * Time.deltaTime;
+
+            //_rb.MovePosition(transform.position + moveVector);
         }
 
         private void checkJump()
