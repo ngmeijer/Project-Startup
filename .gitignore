@@ -58,7 +58,7 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Prefabs/
+/The Day We Escaped/Assets/Prefabs/
 Prefabs.meta
 Models/
 Models.meta
