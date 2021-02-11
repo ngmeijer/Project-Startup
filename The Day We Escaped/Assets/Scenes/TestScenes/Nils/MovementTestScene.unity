@@ -98,7 +98,7 @@ LightmapSettings:
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
   m_LightingDataAsset: {fileID: 0}
-  m_UseShadowmask: 1
+  m_UseShadowmask: 0
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
@@ -3091,7 +3091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1170865187}
   m_LocalRotation: {x: 0.048231583, y: 0.92456836, z: -0.12502606, w: 0.35667288}
-  m_LocalPosition: {x: 1.138, y: 4.472, z: -6.4860005}
+  m_LocalPosition: {x: 1.2800001, y: 4.7700005, z: -6.4700003}
   m_LocalScale: {x: 1, y: 0.46, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -3109,10 +3109,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c38762de06db3419f1b9c534934c18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fovDir: 1
-  _amountOfRaysHorizontal: 50
-  _amountOfRaysVertical: 18
+  _amountOfRaysHorizontal: 16
+  _amountOfRaysVertical: 25
   _viewZRange: 5.92
+  _maxHeight: 0
+  mesh: {fileID: 0}
   _targetMask:
     serializedVersion: 2
     m_Bits: 0
@@ -3120,9 +3121,8 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 1170865194}
-  distanceBetweenRaysX: 0.18477969
-  distanceBetweenRaysY: 0.50473064
-  scanSpeed: -0.01
+  distanceBetweenRaysX: 0.3589383
+  distanceBetweenRaysY: 0.2258956
 --- !u!20 &1170865194
 Camera:
   m_ObjectHideFlags: 0
@@ -3148,7 +3148,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5.92
-  field of view: 75
+  field of view: 51
   orthographic: 0
   orthographic size: 5
   m_Depth: 0
