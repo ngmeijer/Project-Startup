@@ -28,6 +28,16 @@ public class FOVAdvanced : MonoBehaviour
     public float distanceBetweenRaysX;
     public float distanceBetweenRaysY;
 
+    private float oldPosX;
+    private float oldPosY;
+
+    private float frustumBottom;
+    private float frustumTop;
+    private float frustumLeft;
+    private float frustumRight;
+
+    [SerializeField] private float _scanSpeed = 0.01f;
+
     private void OnDrawGizmos()
     {
         Gizmos.matrix = transform.localToWorldMatrix;
@@ -37,24 +47,52 @@ public class FOVAdvanced : MonoBehaviour
         float frustumHeight = 1.0f * _viewZRange * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
         float frustumWidth = frustumHeight * cam.aspect;
 
+        frustumTop = frustumHeight;
+        frustumBottom = -frustumHeight;
+        frustumLeft = -frustumWidth;
+        frustumRight = frustumWidth;
+
         Gizmos.color = Color.red;
 
-        Debug.Log(frustumWidth / _amountOfRaysHorizontal);
-
-        distanceBetweenRaysX = (frustumWidth * 2) / _amountOfRaysHorizontal;
-        distanceBetweenRaysY = (frustumHeight * 2) / _amountOfRaysVertical;
-
-        float oldPosX = -frustumWidth;
-        float oldPosY = frustumHeight;
-
-        Gizmos.DrawLine(Vector3.zero, new Vector3(-frustumWidth, frustumHeight, _viewZRange));
-        Gizmos.DrawLine(Vector3.zero, new Vector3(frustumWidth, frustumHeight, _viewZRange));
-
-        for (int x = 0; x < _amountOfRaysHorizontal; x++)
+        switch (FOVDir)
         {
-            oldPosX += distanceBetweenRaysX;
-            oldPosY -= distanceBetweenRaysY;
-            Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, frustumHeight, _viewZRange));
+            case FOVDirection.Horizontal:
+                oldPosX = -frustumWidth;
+                distanceBetweenRaysX = (frustumWidth * 2) / _amountOfRaysHorizontal;
+
+                oldPosY -= _scanSpeed;
+
+                for (int x = 0; x < _amountOfRaysHorizontal; x++)
+                {
+                    oldPosX += distanceBetweenRaysX;
+                    Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, oldPosY, _viewZRange));
+                }
+
+                if (oldPosY <= frustumBottom || oldPosY >= frustumTop)
+                    _scanSpeed *= -1;
+
+                Gizmos.DrawLine(Vector3.zero, new Vector3(-frustumWidth, oldPosY, _viewZRange));
+                Gizmos.DrawLine(Vector3.zero, new Vector3(frustumWidth, oldPosY, _viewZRange));
+                break;
+            case FOVDirection.Vertical:
+                oldPosY = -frustumHeight;
+
+                distanceBetweenRaysY = (frustumHeight * 2) / _amountOfRaysVertical;
+
+                oldPosX -= _scanSpeed;
+
+                for (int y = 0; y < _amountOfRaysVertical; y++)
+                {
+                    oldPosY += distanceBetweenRaysY;
+                    Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, oldPosY, _viewZRange));
+                }
+
+
+                if (oldPosX <= frustumLeft || oldPosX >= frustumRight)
+                    _scanSpeed *= -1;
+
+                break;
         }
+
     }
 }
