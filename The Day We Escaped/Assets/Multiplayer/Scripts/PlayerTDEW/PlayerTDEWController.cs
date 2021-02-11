@@ -17,10 +17,10 @@ namespace UnityTemplateProjects.PlayerTDEW
         [SerializeField] private bool _right;
 
         private IPlayerMovement _playerMovement;
-        
+
         private static readonly int SpeedXAnimId = Animator.StringToHash("SpeedX");
         private static readonly int SpeedZAnimId = Animator.StringToHash("SpeedZ");
-        
+
         public override void Attached()
         {
             state.SetTransforms(state.PlayerTransform, this.transform, _renderTransform);
@@ -28,7 +28,7 @@ namespace UnityTemplateProjects.PlayerTDEW
             _playerMovement = GetComponent<IPlayerMovement>();
 
             state.SetAnimator(GetComponentInChildren<Animator>());
-            
+
             if (entity.IsOwner)
             {
                 AttacheMainCamera();
@@ -40,7 +40,7 @@ namespace UnityTemplateProjects.PlayerTDEW
             PoolKeys();
 
             Vector3 direction = Vector3.zero;
-            
+
             if (_forward)
             {
                 direction += transform.forward;
@@ -49,7 +49,7 @@ namespace UnityTemplateProjects.PlayerTDEW
             {
                 direction += -1 * transform.forward;
             }
-            
+
             if (_left)
             {
                 direction += -1 * transform.right;
@@ -61,7 +61,7 @@ namespace UnityTemplateProjects.PlayerTDEW
 
             _playerMovement.Rotate(_yaw);
             _playerMovement.Move(direction);
-            
+
             state.Animator.SetFloat(SpeedXAnimId, _playerMovement.Direction.x);
             state.Animator.SetFloat(SpeedZAnimId, _playerMovement.Direction.z);
         }
@@ -84,8 +84,15 @@ namespace UnityTemplateProjects.PlayerTDEW
         public void AttacheMainCamera()
         {
             Camera.main.transform.parent = this.transform;
-            Camera.main.transform.localPosition = new Vector3(0, 0.6f, -0.06f);
+            Camera.main.transform.localPosition = new Vector3(0, 0.6f, 0.07f);
             Camera.main.transform.localRotation = Quaternion.identity;
+        }
+
+        public void SetPositionAndRotation(Vector3 pos, Quaternion rot = default)
+        {
+            _playerMovement.SetPosition(pos);
+            _yaw = rot.eulerAngles.y;
+            _playerMovement.SetRotation(rot);
         }
     }
 }

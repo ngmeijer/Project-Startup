@@ -59,20 +59,20 @@ public class TweenRotate : MonoBehaviour
         if (forceFromRotation)
         {
             if (space == Space.Self)
-                _tween = Tween.LocalPosition(this.transform, toRotation, fromRotation, duration, delay, easing,
+                _tween = Tween.LocalRotation(this.transform, toRotation, fromRotation, duration, delay, easing,
                     loopType,
                     delegate { startCallback?.Invoke(); }, delegate { completeCallback?.Invoke(); });
             else
-                _tween = Tween.Position(this.transform, toRotation, fromRotation, duration, delay, easing, loopType,
+                _tween = Tween.Rotation(this.transform, toRotation, fromRotation, duration, delay, easing, loopType,
                     delegate { startCallback?.Invoke(); }, delegate { completeCallback?.Invoke(); });
         }
         else
         {
             if (space == Space.Self)
-                _tween = Tween.LocalPosition(this.transform, fromRotation, duration, delay, easing, loopType,
+                _tween = Tween.LocalRotation(this.transform, fromRotation, duration, delay, easing, loopType,
                     delegate { startCallback?.Invoke(); }, delegate { completeCallback?.Invoke(); });
             else
-                _tween = Tween.Position(this.transform, fromRotation, duration, delay, easing, loopType,
+                _tween = Tween.Rotation(this.transform, fromRotation, duration, delay, easing, loopType,
                     delegate { startCallback?.Invoke(); }, delegate { completeCallback?.Invoke(); });
         }
     }

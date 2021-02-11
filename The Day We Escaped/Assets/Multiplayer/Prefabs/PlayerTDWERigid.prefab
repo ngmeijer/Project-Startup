@@ -51,7 +51,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 508841f9-ebe0-4c1e-a168-d977255f1bd7
-  _prefabId: 4
+  _prefabId: 3
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -129,6 +129,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _speed: 8
   _direction: {x: 0, y: 0, z: 0}
+  _enabled: 1
 --- !u!1 &6907722901813367920
 GameObject:
   m_ObjectHideFlags: 0

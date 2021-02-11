@@ -148,7 +148,7 @@ public class FOVAdvanced : MonoBehaviour
     private void findVisibleTargets()
     {
         Debug.DrawRay(transform.position, transform.forward, Color.yellow);
-        Debug.Log(directionsList.Count);
+        //Debug.Log(directionsList.Count);
         foreach (Vector3 directionVec in directionsList)
         {
             RaycastHit hit;

@@ -4,8 +4,8 @@ using Bolt;
 using UnityEngine;
 using UnityEngine.UI;
 
-[BoltGlobalBehaviour(BoltNetworkModes.Server, "Level Test")]
-public class LevelTestServerCallback : Bolt.GlobalEventListener
+[BoltGlobalBehaviour(BoltNetworkModes.Server, "Level Test", "MovementTestScene")]
+public class LevelTestServerCallback : LevelTestCallbackBase
 {
     public override void SceneLoadRemoteDone(BoltConnection connection, IProtocolToken token)
     {
@@ -26,6 +26,7 @@ public class LevelTestServerCallback : Bolt.GlobalEventListener
         }
 
         var spawnPosition = Vector3.zero;
+        var spawnRotation = Quaternion.identity;
         GameObject spawnPoint;
         
         BoltLog.Warn($"{this} Server | playerType: " + playerType);
@@ -40,10 +41,8 @@ public class LevelTestServerCallback : Bolt.GlobalEventListener
             //Instantiate player at Morgue
             spawnPoint = GameObject.Find("SpawnPoint Morgue");
         }
-
-        spawnPosition = (spawnPoint != null) ? spawnPoint.transform.position : spawnPosition;
         
         //TODO: factory pattern
-        var serverPlayer = BoltNetwork.Instantiate(BoltPrefabs.PlayerTDWERigid, spawnPosition, Quaternion.identity);
+        var serverPlayer = InstantiatePlayerAtSpawnPoint(spawnPoint);
     }
 }
