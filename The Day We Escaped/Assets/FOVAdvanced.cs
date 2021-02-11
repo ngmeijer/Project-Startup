@@ -90,23 +90,23 @@ public class FOVAdvanced : MonoBehaviour
                 Gizmos.DrawLine(Vector3.zero, new Vector3(frustumWidth, oldPosY, _viewZRange));
                 break;
             case FOVdirection.Vertical:
-                for (int x = 0; x < _amountOfRaysHorizontal; x++)
-                {
-                    oldPosY += distanceBetweenRaysY;
+                //for (int x = 0; x < _amountOfRaysHorizontal; x++)
+                //{
+                //    oldPosY += distanceBetweenRaysY;
 
-                    Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, oldPosY, _viewZRange));
-                }
+                //    Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, oldPosY, _viewZRange));
+                //}
 
                 oldPosX -= scanSpeed;
 
                 if (oldPosX <= frustumLeft || oldPosX >= originalFrustumWidth)
                     scanSpeed *= -1;
 
-                //Mandatory ray left
-                Gizmos.DrawLine(Vector3.zero, new Vector3(-frustumWidth, oldPosY, _viewZRange));
+                //Mandatory ray top
+                Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, frustumHeight, _viewZRange));
 
-                //Mandatory ray right
-                Gizmos.DrawLine(Vector3.zero, new Vector3(frustumWidth, oldPosY, _viewZRange));
+                //Mandatory ray menu
+                Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, -frustumHeight, _viewZRange));
                 break;
         }
 

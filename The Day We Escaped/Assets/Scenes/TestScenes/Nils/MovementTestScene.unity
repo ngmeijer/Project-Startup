@@ -3120,7 +3120,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 0
   cam: {fileID: 1170865194}
-  distanceBetweenRaysX: 0.10062439
+  distanceBetweenRaysX: 0.18477969
   distanceBetweenRaysY: 0.50473064
   scanSpeed: -0.01
 --- !u!20 &1170865194
