@@ -74,10 +74,11 @@ public class FOVAdvanced : MonoBehaviour
                 Gizmos.DrawLine(Vector3.zero, new Vector3(-frustumWidth, oldPosY, _viewZRange));
                 Gizmos.DrawLine(Vector3.zero, new Vector3(frustumWidth, oldPosY, _viewZRange));
                 break;
-            case FOVDirection.Vertical:
-                oldPosY = -frustumHeight;
 
-                distanceBetweenRaysY = (frustumHeight * 2) / _amountOfRaysVertical;
+            case FOVDirection.Vertical:
+                oldPosY = -frustumHeight * 2;
+
+                distanceBetweenRaysY = (frustumHeight * 4) / _amountOfRaysVertical;
 
                 oldPosX -= _scanSpeed;
 
@@ -90,6 +91,9 @@ public class FOVAdvanced : MonoBehaviour
 
                 if (oldPosX <= frustumLeft || oldPosX >= frustumRight)
                     _scanSpeed *= -1;
+
+                Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, frustumHeight * 2, _viewZRange));
+                Gizmos.DrawLine(Vector3.zero, new Vector3(oldPosX, -frustumHeight * 2, _viewZRange));
 
                 break;
         }
