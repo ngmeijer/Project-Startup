@@ -58,10 +58,6 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Prefabs/
-Prefabs.meta
-Models/
-Models.meta
 Presets/
 Presets.meta
 UserSettings/
