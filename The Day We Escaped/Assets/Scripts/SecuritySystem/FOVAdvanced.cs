@@ -23,7 +23,6 @@ public class FOVAdvanced : MonoBehaviour
 
     [SerializeField] [Range(-0.05f, 0.05f)] private float _scanSpeed;
 
-
     [SerializeField] private Mesh mesh;
 
     [SerializeField] private LayerMask _targetMask;
@@ -42,12 +41,29 @@ public class FOVAdvanced : MonoBehaviour
 
     private void Start()
     {
+        cam.farClipPlane = _viewZRange;
+        cam.fieldOfView = _fov;
+
+        float frustumHeight = 1.0f * _viewZRange * Mathf.Tan(cam.fieldOfView * 0.5f * Mathf.Deg2Rad);
+        float frustumWidth = frustumHeight * cam.aspect;
+
+        //Y-axis, TOP & BOTTOM
+        frustumSize.yMin = frustumHeight;
+        frustumSize.yMax = -frustumHeight;
+
+        //X-axis LEFT & RIGHT
+        frustumSize.xMin = -frustumWidth;
+        frustumSize.xMax = frustumWidth;
+
         switch (FOVDir)
         {
             case FOVDirection.Horizontal:
+                oldPosX = -frustumWidth;
+                distanceBetweenRaysX = (frustumWidth * 2) / _amountOfRaysHorizontal;
+
                 for (int x = 0; x < _amountOfRaysHorizontal; x++)
                 {
-
+                    Vector3 directionVec = new Vector3(oldPosX, oldPosY, _viewZRange);
                 }
                 break;
             case FOVDirection.Vertical:
@@ -55,6 +71,7 @@ public class FOVAdvanced : MonoBehaviour
         }
     }
 
+    //Only for testing & scene view. 
     private void OnDrawGizmos()
     {
         Gizmos.matrix = transform.localToWorldMatrix;

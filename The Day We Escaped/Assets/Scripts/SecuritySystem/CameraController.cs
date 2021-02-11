@@ -11,9 +11,13 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _mouseSensitivityY = 90f;
     [SerializeField] private bool _isInverted = true;
 
+    private Animator  anim;
+    
+
     private void Start()
     {
         _rb = GetComponentInParent<Rigidbody>();
+        
     }
 
     private void FixedUpdate()
@@ -27,5 +31,15 @@ public class CameraController : MonoBehaviour
 
         //Vertical 
         transform.Rotate(Vector3.right * lookHoriz * -1);
+
+        zoomIn();
+    }
+
+    private void zoomIn()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+
+        }
     }
 }
