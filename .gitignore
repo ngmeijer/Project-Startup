@@ -58,13 +58,37 @@ sysinfo.txt
 # Crashlytics generated file
 crashlytics-build.properties
 
-Prefabs/
-Prefabs.meta
-Models/
-Models.meta
 Presets/
 Presets.meta
 UserSettings/
 ProBuilder/
 ProGrids/
 NUnit.3.13.1/
+The Day We Escaped/Bolt_DebugStart_Build/
+
+/The Day We Escaped/Assets/Prefabs/
+/The Day We Escaped/Assets/Prefabs.meta
+/The Day We Escaped/Assets/Models/
+/The Day We Escaped/Assets/Models.meta
+/The Day We Escaped/Assets/Presets/
+/The Day We Escaped/Assets/Presets.meta
+/The Day We Escaped/Assets/ProBuilder/
+/The Day We Escaped/Assets/ProGrids/
+/The Day We Escaped/Assets/NUnit.3.13.1/
+
+/.idea/
+/Assets/SampleScenes/
+/Assets/samples/
+/The Day We Escaped/Bolt_DebugStart_Build/
+/The Day We Escaped/Assets/Standard Assets/
+/The Day We Escaped/Assets/_TerrainAutoUpgrade.meta
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_GoodDirt30f398e87d143c9f.terrainlayer
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_GoodDirt30f398e87d143c9f.terrainlayer.meta
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_Grass (Hill)30f398e87d143c9f.terrainlayer
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_Grass (Hill)30f398e87d143c9f.terrainlayer.meta
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_Grass&Rock30f398e87d143c9f.terrainlayer
+/The Day We Escaped/Assets/_TerrainAutoUpgrade/layer_Grass&Rock30f398e87d143c9f.terrainlayer.meta
+/The Day We Escaped/Assets/Photon/PhotonBolt/packages/bolt_samples.unitypackage
+/The Day We Escaped/.idea/
+The Day We Escaped/.idea/
+The Day We Escaped/.idea/.idea.The Day We Escaped/.idea/indexLayout.xml

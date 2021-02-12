@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterNS
+namespace Player
 {
     public class PlayerMovement : MonoBehaviour
     {
         private Rigidbody _rb;
-        [Range(0.5f, 15)] [SerializeField] private float _moveSpeed = 3f;
-        [Range(0.5f, 10)] [SerializeField] private float _jumpForce = 5f;
+        private Camera _cam;
+        [Range(0.5f, 15f)] [SerializeField] private float _moveSpeed = 3f;
+        [Range(2f, 15f)] [SerializeField] private float _jumpForce = 5f;
 
         private void Awake()
         {
@@ -39,12 +40,17 @@ namespace CharacterNS
         private void checkJump()
         {
             if (Input.GetKeyDown(KeyCode.Space))
-                _rb.AddForce(new Vector3(0f, _jumpForce, 0f) * Time.fixedDeltaTime);
+            {
+                _rb.AddForce(new Vector3(0f, _jumpForce, 0f), ForceMode.Impulse);
+            }
         }
 
         private void checkCrouch()
         {
-
+            if (Input.GetKeyDown(KeyCode.LeftControl))
+            {
+                
+            }
         }
     }
 }
