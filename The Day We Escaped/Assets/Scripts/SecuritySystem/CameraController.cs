@@ -10,14 +10,20 @@ public class CameraController : MonoBehaviour
     [SerializeField] private float _mouseSensitivityX = 90f;
     [SerializeField] private float _mouseSensitivityY = 90f;
     [SerializeField] private bool _isInverted = true;
+    private int _inversionValue = -1;
 
-    private Animator  anim;
-    
+    private Animator anim;
+
 
     private void Start()
     {
         _rb = GetComponentInParent<Rigidbody>();
-        
+        if (_isInverted)
+            _inversionValue = 1;
+        else
+            _inversionValue = -1;
+
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void FixedUpdate()
@@ -30,7 +36,7 @@ public class CameraController : MonoBehaviour
         _rb.MoveRotation(_rb.rotation * deltaRot);
 
         //Vertical 
-        transform.Rotate(Vector3.right * lookHoriz * -1);
+        transform.Rotate(Vector3.right * lookHoriz * _inversionValue);
 
         zoomIn();
     }
