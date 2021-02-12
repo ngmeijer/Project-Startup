@@ -18,7 +18,7 @@ public class FOVAdvanced : MonoBehaviour
     private Camera _camera;
     private List<Collider> _playersFound = new List<Collider>();
     private Light _light;
-    private bool _foundCollider;
+    private bool _foundTarget;
 
     private float _timer;
 
@@ -68,17 +68,41 @@ public class FOVAdvanced : MonoBehaviour
 
     private bool isTargetInView()
     {
+        Transform target = null;
         Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_camera);
 
-        foreach (Collider playercCollider in _playersFound)
+        foreach (Collider playerCollider in _playersFound)
         {
-            if (GeometryUtility.TestPlanesAABB(planes, playercCollider.bounds))
-                _foundCollider = true;
+            target = playerCollider.transform;
+            if (GeometryUtility.TestPlanesAABB(planes, playerCollider.bounds))
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, (playerCollider.transform.position - transform.position), out hit))
+                {
+                    if (hit.collider.gameObject.CompareTag("Player"))
+                    {
+                        Debug.DrawLine(transform.position, playerCollider.transform.position, Color.red);
+                        _foundTarget = true;
+                    }
+                }
+            }
             else
-                _foundCollider = false;
+            {
+                Debug.DrawLine(transform.position, playerCollider.transform.position, Color.green);
+                _foundTarget = false;
+            }
         }
 
-        return _foundCollider;
+        if (_foundTarget)
+        {
+            Debug.DrawLine(transform.position, target.position, Color.red);
+        }
+        else
+        {
+            Debug.DrawLine(transform.position, target.position, Color.green);
+        }
+
+        return _foundTarget;
     }
 
     private void handleAlertState()

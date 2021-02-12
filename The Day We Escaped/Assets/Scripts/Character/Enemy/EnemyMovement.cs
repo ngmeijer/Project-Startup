@@ -92,15 +92,10 @@ public class EnemyMovement : MonoBehaviour
 
     private Transform findNewTargetPoint()
     {
-        //Find random index
         int index = Random.Range(0, _patrolPoints.Count);
 
-        //Select point with randomized index
         Transform newTarget = _patrolPoints[index];
 
-        Debug.Log("setting new target");
-
-        //If distance suffices, set new target.
         currentTarget = newTarget;
 
         return newTarget;
@@ -114,13 +109,11 @@ public class EnemyMovement : MonoBehaviour
 
         if (distance >= minDistanceToNewPoint && distance <= maxDistanceToNewPoint)
         {
-            Debug.Log($"Distance: {distance}. Target is within proper range.");
             withinGivenRanges = true;
         }
 
         if (distance < minDistanceToNewPoint || distance > maxDistanceToNewPoint)
         {
-            Debug.Log($"Distance {distance}. Target out of range.");
             findNewTargetPoint();
             withinGivenRanges = false;
         }
