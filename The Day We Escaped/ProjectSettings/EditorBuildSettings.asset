@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Multiplayer/Scenes/Level Test.unity
     guid: 7c51404abfa21cf44926690612d58ef6
+  - enabled: 1
+    path: Assets/Multiplayer/Scenes/MovementTestScene.unity
+    guid: cbd6a30e02230ce42ab9c8effa08032e
   m_configObjects: {}

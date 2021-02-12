@@ -2,8 +2,8 @@
 using UnityEngine;
 
 
-[BoltGlobalBehaviour(BoltNetworkModes.Client, "Level Test")]
-public class LevelTestClientCallback : Bolt.GlobalEventListener
+[BoltGlobalBehaviour(BoltNetworkModes.Client, "Level Test", "MovementTestScene")]
+public class LevelTestClientCallback : LevelTestCallbackBase
 {
     /// <summary>
     /// After scene is loaded, creates the Client Player, this player type will be different from the server player
@@ -41,9 +41,6 @@ public class LevelTestClientCallback : Bolt.GlobalEventListener
             spawnPoint = GameObject.Find("SpawnPoint Cell");
         }
 
-        spawnPosition = (spawnPoint != null) ? spawnPoint.transform.position : spawnPosition;
-        
-        //TODO: factory pattern
-        var clientPlayer = BoltNetwork.Instantiate(BoltPrefabs.PlayerTDWERigid, spawnPosition, Quaternion.identity);
+        var clientPlayer = InstantiatePlayerAtSpawnPoint(spawnPoint);
     }
 }

@@ -1,20 +1,36 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using UnityEngine.UI;
 
-namespace UnityTemplateProjects.GameUI.MouseCursor
+public class SetMouseCursor : MonoBehaviour
 {
-    public class SetMouseCursor : MonoBehaviour
+    [SerializeField]
+    private MouseCursorUtils _mouseCursorUtils;
+    private bool _hasMouseCursorUtils;
+    
+    private void Start()
     {
-        public CursorMode cursorMode = CursorMode.Auto;
-        public Vector2 hotSpot = Vector2.zero;
-        
-        public void SetCursor(Texture2D pCursorTexture2D)
+        _mouseCursorUtils = GameObject.FindObjectOfType<MouseCursorUtils>();
+        _hasMouseCursorUtils = _mouseCursorUtils != null;
+    }
+
+    public void SetOnHoverCursor()
+    {
+        if (_hasMouseCursorUtils)
         {
-            Cursor.SetCursor(pCursorTexture2D, hotSpot, cursorMode);
+            _mouseCursorUtils.SetOnHoverCursor();
         }
         
-        public void SetDefaultCursor()
+        BoltLog.Info($"{this} on enter Cursor");
+    }
+
+    public void SetDefaultCursor()
+    {
+        if (_hasMouseCursorUtils)
         {
-            Cursor.SetCursor(null, Vector2.zero, cursorMode);
+            _mouseCursorUtils.SetDefaultCursor();
         }
+        
+        BoltLog.Info($"{this} on exit Cursor");
     }
 }
