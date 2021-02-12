@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: ddb3304d-4bc7-403a-b36c-ec5906dcad82
-  _prefabId: 1
+  _prefabId: 2
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -89,7 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a717c164008452990f4303de3d2b256, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  distanceAllowed: 1.5
+  distanceAllowed: 4
   lockChangeDelay: 1
   totalInteractionsAllowed: -1
   _interactionsCount: 0
@@ -129,12 +129,11 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6961612301446610850}
-        m_MethodName: SetCursor
-        m_Mode: 2
+        m_MethodName: SetOnHoverCursor
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 2800000, guid: 08b6acf910db0c24b9167583ee336752,
-            type: 3}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Texture2D, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -166,8 +165,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3270a6e4a24b4d25bf63678b73f18465, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cursorMode: 0
-  hotSpot: {x: 53, y: 0}
+  _mouseCursorUtils: {fileID: 0}
 --- !u!1 &5849020028322540723
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,6 +178,7 @@ GameObject:
   - component: {fileID: 7561305847717881025}
   - component: {fileID: 3558154455891192926}
   - component: {fileID: 4962168982439204670}
+  - component: {fileID: 1374546722202594886}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -274,12 +273,21 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: 0
-      inSlope: 0
-      outSlope: 0
+      inSlope: 2
+      outSlope: 2
       tangentMode: 0
       weightedMode: 0
       inWeight: 0
       outWeight: 0
+    - serializedVersion: 3
+      time: 0.32974076
+      value: 0.73443264
+      inSlope: 1.1800246
+      outSlope: 1.1800246
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
     - serializedVersion: 3
       time: 1
       value: 1
@@ -299,3 +307,16 @@ MonoBehaviour:
   completeCallback:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &1374546722202594886
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5849020028322540723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6a03ece905ff534489e6be0ed6a8bb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  color: {r: 0.23584908, g: 0.23473659, b: 0.23473659, a: 1}

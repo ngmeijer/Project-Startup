@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Events;
 
-public abstract class ConfigPlayerOwnerCallbackBase : Bolt.GlobalEventListener
+public class ConfigPlayerOwnerCallbackBase : Bolt.GlobalEventListener
 {
+    public UnityEvent notify;
+    
     public override void EntityAttached(BoltEntity entity)
     {
         if (entity.StateIs<IPlayerTDWEState>() && entity.IsOwner)
@@ -15,8 +18,6 @@ public abstract class ConfigPlayerOwnerCallbackBase : Bolt.GlobalEventListener
     {
         yield return new WaitForEndOfFrame();
         
-        
+        notify?.Invoke();
     }
-
-    protected abstract void PlayerAttached(BoltEntity playerEntity);
 }
