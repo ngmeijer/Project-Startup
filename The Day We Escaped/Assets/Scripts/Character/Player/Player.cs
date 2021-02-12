@@ -2,15 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CharacterNS
+namespace Player
 {
-    public class Player : Character
+    public class Player
     {
-        private PlayerMovement _movementModule;
-
-        private void Awake()
-        {
-            _movementModule = GetComponent<PlayerMovement>();
-        }
+            
     }
 }
