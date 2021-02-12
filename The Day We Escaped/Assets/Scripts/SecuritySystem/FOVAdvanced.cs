@@ -4,16 +4,15 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-enum EnemyAlertLevel
+public enum EnemyAlertLevel
 {
     Idle,
     Suspicious,
     Aware,
 };
 
-public class FOVAdvanced : MonoBehaviour
+public class FOVAdvanced : MonoBehaviour, ISubject
 {
-    private EnemyMovement _movement;
     private EnemyAlertLevel _alertLevel;
     private Camera _camera;
     private List<Collider> _playersFound = new List<Collider>();
@@ -21,17 +20,20 @@ public class FOVAdvanced : MonoBehaviour
     private bool _foundTarget;
 
     private float _timer;
+    public List<IObserver> _observerList { get; }
+
+    public EnemyAlertLevel AlertLevel { get; private set; }
 
     [Header("Security settings")]
     [SerializeField] [Range(0, 5)] private float _dangerDelay;
 
     [Header("Light settings")]
-    [SerializeField] private float _range;
-    [SerializeField] private float _intensity;
+    [SerializeField] [Range(1, 20)] private float _range;
+    [SerializeField] private float _intensity = 20f;
 
     private void Awake()
     {
-        _camera = GetComponent<Camera>();
+        _camera = GetComponentInChildren<Camera>();
         if (_camera == null)
             this.gameObject.AddComponent<Camera>();
 
@@ -47,6 +49,8 @@ public class FOVAdvanced : MonoBehaviour
     private void Start()
     {
         _light.range = _range;
+        _light.intensity = _intensity;
+        _camera.farClipPlane = _range;
 
         findTargetsInScene();
     }
@@ -81,25 +85,27 @@ public class FOVAdvanced : MonoBehaviour
                 {
                     if (hit.collider.gameObject.CompareTag("Player"))
                     {
-                        Debug.DrawLine(transform.position, playerCollider.transform.position, Color.red);
                         _foundTarget = true;
                     }
                 }
             }
             else
             {
-                Debug.DrawLine(transform.position, playerCollider.transform.position, Color.green);
                 _foundTarget = false;
             }
         }
 
-        if (_foundTarget)
+        if (target != null)
         {
-            Debug.DrawLine(transform.position, target.position, Color.red);
-        }
-        else
-        {
-            Debug.DrawLine(transform.position, target.position, Color.green);
+            if (Vector3.Distance(transform.position, target.position) <= _range)
+                if (_foundTarget)
+                {
+                    Debug.DrawLine(transform.position, target.position, Color.red);
+                }
+                else
+                {
+                    Debug.DrawLine(transform.position, target.position, Color.green);
+                }
         }
 
         return _foundTarget;
@@ -129,6 +135,33 @@ public class FOVAdvanced : MonoBehaviour
             _light.color = Color.white;
             _timer = 0;
         }
+    }
+
+    public void Attach(IObserver pObserver)
+    {
+        Debug.Log($"ISubject {this.GetType()}: Observer has been attached.");
+        _observerList.Add(pObserver);
+    }
+
+    public void Detach(IObserver pObserver)
+    {
+        Debug.Log($"ISubject {this.GetType()}: Observer has been detached.");
+        _observerList.Remove(pObserver);
+    }
+
+    public void NotifyObservers()
+    {
+        Debug.Log($"ISubject {this.GetType()}: all Observers are being updated.");
+        foreach (IObserver observer in _observerList)
+        {
+            observer.UpdateObservers();
+        }
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.white;
+        Gizmos.DrawWireSphere(transform.position, _range);
     }
 
     #region 

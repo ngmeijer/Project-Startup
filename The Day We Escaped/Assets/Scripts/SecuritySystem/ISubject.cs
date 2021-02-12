@@ -1,18 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using System.Collections.Generic;
 
-public class ISubject : MonoBehaviour
+public interface ISubject
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    List<IObserver> _observerList { get; }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+    EnemyAlertLevel AlertLevel { get; }
+
+    void Attach(IObserver pObserver);
+    void Detach(IObserver pObserver);
+    void NotifyObservers();
 }
