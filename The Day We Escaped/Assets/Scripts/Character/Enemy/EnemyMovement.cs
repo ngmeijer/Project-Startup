@@ -9,9 +9,14 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent agent;
     private Transform currentTarget;
     private bool arrivedAtTarget;
+    private float timer;
 
-    [SerializeField] private float _walkRange = 10f;
-    [SerializeField] private List<Transform> _patrolPoints = new List<Transform>();
+    [SerializeField] [Range(0, 30)] private float delayBeforeMoving;
+    [SerializeField] [Range(0, 30)] private float _walkRange = 10f;
+    [SerializeField] [Range(0, 20)] private float minDistanceToNewPoint = 5f;
+
+    private List<Transform> _patrolPoints = new List<Transform>();
+    [SerializeField] private GameObject _patrolPointsParent;
 
     private void Start()
     {
@@ -23,6 +28,8 @@ public class EnemyMovement : MonoBehaviour
             agent = GetComponent<NavMeshAgent>();
         }
 
+        findPossibleWaypoints();
+
         setNewDestination();
     }
 
@@ -30,12 +37,34 @@ public class EnemyMovement : MonoBehaviour
     {
         //Choose random point from list of patrolPoints. Then based on which one was chosen, choose a new one after arriving on point, or after certain duration.
 
-        if (arrivedAtTarget)
+        if (checkIfArrived() && delayBeforeMoving != 0)
         {
-            setNewDestination();
+            Debug.Log("Arrived at target");
+            timer += Time.deltaTime;
+        }
+        else
+        {
+            Debug.Log("Not yet at target");
         }
 
-        StartCoroutine(checkIfArrived());
+        if (timer >= delayBeforeMoving && checkIfArrived())
+        {
+            setNewDestination();
+            timer = 0;
+        }
+
+        Debug.DrawLine(transform.position, currentTarget.position);
+    }
+
+    private void findPossibleWaypoints()
+    {
+        int amountOfWaypoints = _patrolPointsParent.transform.childCount;
+
+        for (int index = 0; index < amountOfWaypoints; index++)
+        {
+            Transform child = _patrolPointsParent.transform.GetChild(index);
+            _patrolPoints.Add(child);
+        }
     }
 
     private void setNewDestination()
@@ -57,17 +86,23 @@ public class EnemyMovement : MonoBehaviour
         return newTarget;
     }
 
-    private IEnumerator checkIfArrived()
+    private bool checkIfArrived()
     {
-        while (transform.position != currentTarget.position)
+        bool arrived = false;
+
+        float distance = Vector3.Distance(transform.position, currentTarget.position);
+        Debug.Log(distance);
+        if (distance < 0.5f)
         {
-            Debug.Log("not yet at target");
-            yield return null;
+            arrived = true;
         }
 
-        Debug.Log("Arrived at target.");
-        arrivedAtTarget = true;
+        return arrived;
+    }
 
-        yield return null;
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, minDistanceToNewPoint);
     }
 }
