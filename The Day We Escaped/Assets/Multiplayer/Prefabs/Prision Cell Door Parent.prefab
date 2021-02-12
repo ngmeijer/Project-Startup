@@ -207,10 +207,10 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.32974076
-      value: 0.73443264
-      inSlope: 1.1800246
-      outSlope: 1.1800246
+      time: 0.6124956
+      value: 0.91466874
+      inSlope: 0.6885891
+      outSlope: 0.6885891
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
@@ -281,7 +281,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 9042d476-f93a-4d06-bb2f-a3e8fdf6634e
-  _prefabId: 5
+  _prefabId: 4
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1

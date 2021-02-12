@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6248030173368901884}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.162, z: 0.252}
+  m_LocalPosition: {x: -0, y: 0.573, z: 0.024}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6907722900783324166}
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sceneGuid: 
   _serializerGuid: 508841f9-ebe0-4c1e-a168-d977255f1bd7
-  _prefabId: 4
+  _prefabId: 3
   _updateRate: 1
   _autoFreezeProxyFrames: 0
   _clientPredicted: 1
@@ -128,10 +128,10 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  m_Radius: 0.75
-  m_Height: 3.7
+  m_Radius: 0.5
+  m_Height: 1.8
   m_Direction: 1
-  m_Center: {x: 0, y: 0.88, z: 0}
+  m_Center: {x: 0, y: -0.09, z: 0}
 --- !u!54 &-2365754527947697374
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -735,17 +735,17 @@ PrefabInstance:
     - target: {fileID: 8746595798471049828, guid: b06605b48991fd9498c363e4abfefca7,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8746595798471049828, guid: b06605b48991fd9498c363e4abfefca7,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8746595798471049828, guid: b06605b48991fd9498c363e4abfefca7,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8911367713442725678, guid: b06605b48991fd9498c363e4abfefca7,
         type: 3}
