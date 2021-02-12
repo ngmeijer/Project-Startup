@@ -25,6 +25,7 @@
       <Path>Bolt_DebugStart_Build</Path>
       <Path>Builds</Path>
       <Path>Library</Path>
+      <Path>Temp</Path>
       <Path>obj</Path>
     </explicitExcludes>
   </component>

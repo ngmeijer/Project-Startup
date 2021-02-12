@@ -14,7 +14,8 @@ public class InGameSimpleButtonBoltCallback : Bolt.GlobalEventListener
 
         [SerializeField] private int _parentId;
         [SerializeField] private int _id;
-
+        public int Id => _id;
+        
         [SerializeField] private bool _disabled;
 
         public UnityEvent onEventReceived;

@@ -8,6 +8,17 @@ using UnityTemplateProjects.PlayerTDEW;
 public class ForceServerPlayerToSpawPoint : Bolt.GlobalEventListener
 {
     public Transform spawnPoint;
+    public bool destroyThisInBuild = true;
+
+    private void Awake()
+    {
+        #if UNITY_STANDALONE
+        if (destroyThisInBuild)
+        {
+            Destroy(this);
+        }
+        #endif
+    }
 
     private void Start()
     {

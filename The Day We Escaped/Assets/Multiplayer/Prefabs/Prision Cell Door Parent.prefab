@@ -308,6 +308,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98935391ae184489a62754c4acc43ddf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  id: 0
   initialState: 0
   notifier:
   - m_PersistentCalls:
