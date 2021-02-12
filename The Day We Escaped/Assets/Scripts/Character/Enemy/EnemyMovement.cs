@@ -8,15 +8,29 @@ public class EnemyMovement : MonoBehaviour
     private EnemyAlertLevel alertLevel;
     private NavMeshAgent agent;
     private Transform currentTarget;
+    private Transform targetCandidate;
     private bool arrivedAtTarget;
     private float timer;
 
-    [SerializeField] [Range(0, 30)] private float delayBeforeMoving;
-    [SerializeField] [Range(0, 30)] private float _walkRange = 10f;
-    [SerializeField] [Range(0, 20)] private float minDistanceToNewPoint = 5f;
+
+    [SerializeField]
+    [Tooltip("How long should the NPC remain idle at the target point?")]
+    [Range(0, 30)]
+    private float delayBeforeMoving;
+
+    [SerializeField]
+    [Tooltip("The NPC will not be able to go to a point that's within this range.")]
+    [Range(0, 20)]
+    private float minDistanceToNewPoint = 5f;
+    [SerializeField]
+    [Tooltip("The NPC will not be able to go to a point that's outside this range.")]
+    [Range(0, 30)]
+    private float maxDistanceToNewPoint = 5f;
 
     private List<Transform> _patrolPoints = new List<Transform>();
-    [SerializeField] private GameObject _patrolPointsParent;
+    [SerializeField]
+    [Tooltip("The parent of the patrol points the NPC can go to.")]
+    private GameObject _patrolPointsParent;
 
     private void Start()
     {
@@ -39,12 +53,7 @@ public class EnemyMovement : MonoBehaviour
 
         if (checkIfArrived() && delayBeforeMoving != 0)
         {
-            Debug.Log("Arrived at target");
             timer += Time.deltaTime;
-        }
-        else
-        {
-            Debug.Log("Not yet at target");
         }
 
         if (timer >= delayBeforeMoving && checkIfArrived())
@@ -71,19 +80,52 @@ public class EnemyMovement : MonoBehaviour
     {
         arrivedAtTarget = false;
 
-        Transform newPoint = findNewPoint();
+        Transform newPoint = findNewTargetPoint();
+
+        while (checkNewTargetPointDistance(newPoint) == false)
+        {
+            newPoint = findNewTargetPoint();
+        }
 
         agent.SetDestination(newPoint.position);
     }
 
-    private Transform findNewPoint()
+    private Transform findNewTargetPoint()
     {
+        //Find random index
         int index = Random.Range(0, _patrolPoints.Count);
 
+        //Select point with randomized index
         Transform newTarget = _patrolPoints[index];
+
+        Debug.Log("setting new target");
+
+        //If distance suffices, set new target.
         currentTarget = newTarget;
 
         return newTarget;
+    }
+
+    private bool checkNewTargetPointDistance(Transform newTarget)
+    {
+        bool withinGivenRanges = false;
+        targetCandidate = newTarget;
+        float distance = Vector3.Distance(transform.position, newTarget.position);
+
+        if (distance >= minDistanceToNewPoint && distance <= maxDistanceToNewPoint)
+        {
+            Debug.Log($"Distance: {distance}. Target is within proper range.");
+            withinGivenRanges = true;
+        }
+
+        if (distance < minDistanceToNewPoint || distance > maxDistanceToNewPoint)
+        {
+            Debug.Log($"Distance {distance}. Target out of range.");
+            findNewTargetPoint();
+            withinGivenRanges = false;
+        }
+
+        return withinGivenRanges;
     }
 
     private bool checkIfArrived()
@@ -91,7 +133,7 @@ public class EnemyMovement : MonoBehaviour
         bool arrived = false;
 
         float distance = Vector3.Distance(transform.position, currentTarget.position);
-        Debug.Log(distance);
+
         if (distance < 0.5f)
         {
             arrived = true;
@@ -104,5 +146,23 @@ public class EnemyMovement : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(transform.position, minDistanceToNewPoint);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(transform.position, maxDistanceToNewPoint);
+
+        if (targetCandidate != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawSphere(targetCandidate.position, 1.8f);
+
+            foreach (Transform target in _patrolPoints)
+            {
+                if (target != targetCandidate)
+                {
+                    Gizmos.color = Color.grey;
+                    Gizmos.DrawSphere(target.position, 1f);
+                }
+            }
+        }
     }
 }
