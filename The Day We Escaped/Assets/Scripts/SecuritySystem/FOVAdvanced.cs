@@ -24,6 +24,8 @@ public class FOVAdvanced : MonoBehaviour, ISubject
 
     public EnemyAlertLevel AlertLevel { get; private set; }
 
+    public int SubjectState => throw new NotImplementedException();
+
     [Header("Security settings")]
     [SerializeField] [Range(0, 5)] private float _dangerDelay;
 
@@ -135,6 +137,8 @@ public class FOVAdvanced : MonoBehaviour, ISubject
             _light.color = Color.white;
             _timer = 0;
         }
+
+        NotifyObservers();
     }
 
     public void Attach(IObserver pObserver)

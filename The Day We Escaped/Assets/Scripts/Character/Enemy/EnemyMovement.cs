@@ -167,9 +167,22 @@ namespace Enemy
             }
         }
 
-        public void UpdateObservers()
+        public void UpdateObservers(ISubject pSubject)
         {
-            Debug.Log("Player has been detected!");
+            if (pSubject.SubjectState == (int)EnemyAlertLevel.Idle)
+            {
+
+            }
+
+            if (pSubject.SubjectState == (int)EnemyAlertLevel.Suspicious)
+            {
+
+            }
+
+            if (pSubject.SubjectState == (int)EnemyAlertLevel.Aware)
+            {
+
+            }
         }
     }
 }
